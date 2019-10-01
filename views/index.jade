@@ -1,5 +1,45 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Welcome to Pirate Twitter 
+  br
+  .container
+    .row
+      .col
+        .card(style="max-width: 400px")
+          .card-body
+            | Login.
+            form
+              .form-group
+                label(for='loginUser') User account
+                input#loginUser.form-control(placeholder='Enter username')
+              .form-group
+                label(for='loginPassword') Password
+                input#loginPassword.form-control(type='password' placeholder='Password')
+              button.btn.btn-primary(type='submit') Login
+      .col
+        .card(style="max-width: 400px")
+          .card-body
+            | Create new user.
+            form
+              .form-group
+                label(for='newName') Your Name
+                input#newName.form-control(placeholder='Enter your name')
+              .form-group
+                label(for='newUsername') Your Username
+                input#newUsername.form-control(placeholder='Enter your username')
+              .form-group
+                label(for='newEmail') Your Email
+                input#newEmail.form-control(type='email' aria-describedby='emailHelp' placeholder='Enter your email')
+                small#emailHelp.form-text.text-muted We will never share your email with anyone else.
+              .form-group
+                label(for='newPassword') Type your password
+                input#newPassword.form-control(type='password' placeholder='Password')
+              button.btn.btn-primary(type='submit') Create new user
+        
+
+  .alert.alert-primary(role='alert') 
+    | A simple primary alert&mdash;check it out!
+
+  
+
