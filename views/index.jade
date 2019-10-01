@@ -3,8 +3,8 @@ extends layout
 block content
   .text-center 
     h1 Welcome to Pirate Twitter
-    img.img-thumbnail(src='images/pirate_twitter_2_jpeg.jpg'
-    height="100" width="100")
+    img.img(src='images/pirate_twitter_2_jpeg.jpg'
+    width="100" )
   br
   .container
     .row
@@ -39,10 +39,7 @@ block content
                 label(for='newPassword') Type your password
                 input#newPassword.form-control(type='password' placeholder='Password')
               button.btn.btn-primary(type='submit') Create new user
-        
 
-  .alert.alert-primary(role='alert') 
-    | A simple primary alert&mdash;check it out!
 
   
 
