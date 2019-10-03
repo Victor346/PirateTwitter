@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 /node_modules
-=======
-node_modules/
->>>>>>> eb83a67b0a6f93b51581549dc5d49e9433d9fd2b
+/setting.json
