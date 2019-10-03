@@ -8,11 +8,7 @@ client.on("error", function (err) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-<<<<<<< HEAD
   res.render('index', { title: 'Pirate' });
-=======
-  res.render('index', { title: 'Pirate Twitter' });
->>>>>>> 2ee424920bb993b1c2ae570309085c37c5f20cce
 });
 
 router.post('/login', function(req, res, next){
@@ -23,7 +19,7 @@ router.post('/signup', function(req, res, next){
   let objetoDatos = {'username': req.body.username, 'password': req.body.password, 
     'followers': 'listFollow' + req.body.username, 'following': 'listFollowing' + 
     req.body.password};
-  let stringDatos = JSON.password(objetoDatos);
+  let stringDatos = JSON.parse(objetoDatos);
 
   console.log(stringDatos);
   res.render('signup', {username: stringDatos , password: req.form.password});
