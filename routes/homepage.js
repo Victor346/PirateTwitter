@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var redis = require('redis'), client = redis.createClient(), client2 = redis.createClient();
 
-router.get('', function(req, res, next) {
+router.get('/', function(req, res, next) {
     
 });
 
@@ -22,11 +22,15 @@ router.post('/follow', function(req, res, next) {
     res.render();
 });
 
+
+
 router.post('/publish', function(req, res, next) {
     let username = req.body.username;
     let message = req.body.message;
 
     client.publish(username, message);
-    
+    client.lpush('timelineOf' + username, message);
+
     res.render();
 });
+module.exports = router;
