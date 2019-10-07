@@ -12,13 +12,13 @@ block content
         .card(style="max-width: 400px")
           .card-body
             | Login.
-            form
+            form(action="/login", method="post")
               .form-group
                 label(for='loginUser') User account
-                input#loginUser.form-control(placeholder='Enter username')
+                input#loginUser.form-control(placeholder='Enter username' name='loginUsername')
               .form-group
                 label(for='loginPassword') Password
-                input#loginPassword.form-control(type='password' placeholder='Password')
+                input#loginPassword.form-control(type='password' placeholder='Password' name='loginPassword')
               button.btn.btn-primary(type='submit') Login
       .col
         .card(style="max-width: 400px")
