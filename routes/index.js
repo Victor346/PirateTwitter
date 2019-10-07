@@ -14,6 +14,14 @@ client2.on("message", function (channel, message) {
 
 client2.subscribe(lista);
 
+router.get('/test', function(req, res, next){
+  listFollowing = ['Fer', 'Kim', 'Salaboy']
+  listFollowers = ['Vic', 'El papa']
+  listNoFollow = ['Loco', 'Polo']
+  listPosts = [{user: 'Vic', message: 'Me pegaron en mi casa', timestamp: '2019-01-18'}, {user: 'El papa', message: 'Toque al Fer ayer', timestamp: '2019-01-19'}, {user: 'El papa', message: 'Jaja lol', timestamp: '2019-01-20'}]
+  context = {listFollowing: listFollowing, listFollowers: listFollowers, listNoFollow: listNoFollow, listPosts: listPosts}
+  res.render('homepage', context);
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
