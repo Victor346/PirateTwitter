@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var redis = require('redis'), client2 = redis.createClient(), client = redis.createClient()
+var redis = require('redis'), client = redis.createClient();
+var client2 = redis.createClient();
+
+var clients = new Map();
 
 client.on("error", function (err) {
   console.log("Error " + err);
@@ -13,15 +16,6 @@ client2.on("message", function (channel, message) {
 });
 
 client2.subscribe(lista);
-
-router.get('/test', function(req, res, next){
-  listFollowing = ['Fer', 'Kim', 'Salaboy']
-  listFollowers = ['Vic', 'El papa']
-  listNoFollow = ['Loco', 'Polo']
-  listPosts = [{user: 'Vic', message: 'Me pegaron en mi casa', timestamp: '2019-01-18'}, {user: 'El papa', message: 'Toque al Fer ayer', timestamp: '2019-01-19'}, {user: 'El papa', message: 'Jaja lol', timestamp: '2019-01-20'}]
-  context = {listFollowing: listFollowing, listFollowers: listFollowers, listNoFollow: listNoFollow, listPosts: listPosts}
-  res.render('homepage', context);
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -45,21 +39,14 @@ router.post('/login', function(req, res, next){
       userJSON = JSON.parse(result);
       console.log(userJSON);
       if(password === userJSON.password){
-        res.render('login', { username: userJSON.password });
+        let url = '/home?user=' + username 
+        res.redirect(url);
       } else {
         res.render('error', { title: "Contraseña incorrecta" });
       }
       
     }
   });
-  /*console.log(userRedis);
-  if (userRedis === null) {
-    res.render('error', { title: "No existe dicho usuario" });
-    next();
-  } else {
-    res.render('login', { username: userRedis });
-  }*/
-  //res.render('login', { username: "Hola" });
 });
  
 router.post('/signup', function(req, res, next){
@@ -84,3 +71,4 @@ router.post('/signup', function(req, res, next){
   
 });
 module.exports = router;
+module.exports.mapita = clients;

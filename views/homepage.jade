@@ -20,7 +20,7 @@ block content
                 #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
                     .modal-dialog(role='document')
                         .modal-content
-                            form(method='POST')
+                            form(method='POST' action="/home/publish")
                                 .modal-header
                                     h5#exampleModalLabel.modal-title Write your new Post
                                     button.close(type='button' data-dismiss='modal' aria-label='Close')
@@ -62,6 +62,7 @@ block content
                                 li.list-group-item= noFollowing
                                     form(action="" method='POST')
                                         button.btn.btn-success(type='button') Follow
-                                        input#exampleFormControlInput1.form-control(type='hidden' name=noFollowing placeholder='name@example.com')
+                                        input#exampleFormControlInput1.form-control(type='hidden' name='user' value=username placeholder='name@example.com')
+                                        input#exampleFormControlInput1.form-control(type='hidden' name='newFollow' value=noFollowing placeholder='name@example.com')
 
                                 
