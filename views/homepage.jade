@@ -1,0 +1,67 @@
+extends layout
+
+block content
+    .container(style='margin-top:50px;')
+        .row
+            .col
+                img.img(src='images/pirate_twitter_2_jpeg.jpg' width="100" )
+                h1 Who is following you
+                ul.list-group
+                    each follower in context.listFollowers
+                        li.list-group-item= follower
+            
+                form(action="" method='post')
+                    button.btn.btn-danger(type='submit' style='margin-top:10px;') Logout
+                    input#exampleFormControlInput1.form-control(type='hidden' name='user' placeholder='name@example.com')
+                    
+            .col-6
+                button.btn.btn-primary(type='button' data-toggle='modal' data-target='#exampleModal', style='margin-bottom: 30px;')
+                    | Create new Post
+                #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                    .modal-dialog(role='document')
+                        .modal-content
+                            form(method='POST')
+                                .modal-header
+                                    h5#exampleModalLabel.modal-title Write your new Post
+                                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                        span(aria-hidden='true') &times;
+                                .modal-body
+                                    .form-group
+                                        input#exampleFormControlInput1.form-control(type='hidden' name='user' placeholder='name@example.com')
+
+                                    .form-group
+                                        label(for='exampleFormControlTextarea1') Message
+                                        textarea#exampleFormControlTextarea1.form-control(rows='3' name='message')
+                                    
+                                .modal-footer
+                                    button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                                    button.btn.btn-primary(type='submit') Publish
+                each post in context.listPosts
+                    .card(style='margin-bottom:10px;')
+                        .card-body
+                            a=post.user
+                            |  said:
+                            .br
+                            a=post.message
+                            .br
+                            a=post.timestamp
+                
+            .col
+                .row
+                    .col
+                        h1 Who are you following:
+                        ul.list-group
+                        each following in context.listFollowing
+                            li.list-group-item= following
+                            
+                .row
+                    .col
+                        h1 Not suscribed to:
+                        ul.list-group(style='margin-bottom:50px;')
+                            each noFollowing in context.listNoFollow
+                                li.list-group-item= noFollowing
+                                    form(action="" method='POST')
+                                        button.btn.btn-success(type='button') Follow
+                                        input#exampleFormControlInput1.form-control(type='hidden' name=noFollowing placeholder='name@example.com')
+
+                                
