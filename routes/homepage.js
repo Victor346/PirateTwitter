@@ -30,6 +30,7 @@ router.post('/publish', function(req, res, next) {
 
     client.publish(username, message);
     client.lpush('timelineOf' + username, message);
+    
 
     res.render();
 });
