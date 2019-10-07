@@ -16,12 +16,24 @@ router.post('/login', function(req, res, next){
 });
  
 router.post('/signup', function(req, res, next){
-  let objetoDatos = {'username': req.body.username, 'password': req.body.password, 
-    'followers': 'listFollow' + req.body.username, 'following': 'listFollowing' + 
-    req.body.password};
-  let stringDatos = JSON.password(objetoDatos);
-
-  console.log(stringDatos);
-  res.render('signup', {username: stringDatos , password: req.form.password});
+  let username = req.body.username;
+  let password = req.body.password;
+  let objetoDatos = {password: password, 
+    followers: 'listFollowers' + username, following: 'listFollowing' + 
+    username, timeline: 'timelineOf' + username};
+  let stringDatos = JSON.stringify(objetoDatos);
+  client.hget("users", username, function(err, result){
+    if(result === null){
+      client.hset("users", username, stringDatos);
+      client.lpush(objetoDatos.following, username);
+      client.lpush(objetoDatos.followers, username);
+      client.lpush(objetoDatos.timeline, 'Me uni a Pirate Twitter - Vic');
+      res.render('signup', {Mensaje: "Felicidades te registraste" , Payload: stringDatos});
+    } else {
+      res.render('signup', {Mensaje: "Lo siento amigo" , Payload: stringDatos});
+    }
+ 
+  });
+  
 });
 module.exports = router;

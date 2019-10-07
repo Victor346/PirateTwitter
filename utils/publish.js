@@ -1,0 +1,3 @@
+function publish(post, author) {
+    
+}
