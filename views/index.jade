@@ -12,15 +12,6 @@ block content
         .card(style="max-width: 400px")
           .card-body
             | Login.
-<<<<<<< HEAD
-            form
-              .form-group
-                label(for='loginUser') User account
-                input#loginUser.form-control(placeholder='Enter username')
-              .form-group
-                label(for='loginPassword') Password
-                input#loginPassword.form-control(type='password' placeholder='Password')
-=======
             form(action="/login", method="post")
               .form-group
                 label(for='loginUser') User account
@@ -28,7 +19,6 @@ block content
               .form-group
                 label(for='loginPassword') Password
                 input#loginPassword.form-control(type='password' placeholder='Password' name='loginPassword')
->>>>>>> e8eb425ba67bc122f4628c890d1168395a694aff
               button.btn.btn-primary(type='submit') Login
       .col
         .card(style="max-width: 400px")
