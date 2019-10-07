@@ -1,34 +1,11 @@
 var express = require('express');
 var router = express.Router();
-<<<<<<< HEAD
-var redis = require('redis'), client = redis.createClient();
-=======
 var redis = require('redis'), client2 = redis.createClient(), client = redis.createClient()
->>>>>>> e8eb425ba67bc122f4628c890d1168395a694aff
 
 client.on("error", function (err) {
   console.log("Error " + err);
 });
 
-<<<<<<< HEAD
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Pirate' });
-});
-
-router.post('/login', function(req, res, next){
-  res.render('error', { title: 'Errorrrr.'});
-});
- 
-router.post('/signup', function(req, res, next){
-  let objetoDatos = {'username': req.body.username, 'password': req.body.password, 
-    'followers': 'listFollow' + req.body.username, 'following': 'listFollowing' + 
-    req.body.password};
-  let stringDatos = JSON.parse(objetoDatos);
-
-  console.log(stringDatos);
-  res.render('signup', {username: stringDatos , password: req.form.password});
-=======
 lista = ["fsdabhkfas", "asjkfg", "Mi canal favorito", "TJosdfpjdf", "FASFSD"]
 
 client2.on("message", function (channel, message) {
@@ -97,6 +74,5 @@ router.post('/signup', function(req, res, next){
  
   });
   
->>>>>>> e8eb425ba67bc122f4628c890d1168395a694aff
 });
 module.exports = router;
