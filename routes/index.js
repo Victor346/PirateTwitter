@@ -61,7 +61,10 @@ router.post('/signup', function(req, res, next){
       client.hset("users", username, stringDatos);
       client.lpush(objetoDatos.following, username);
       client.lpush(objetoDatos.followers, username);
-      client.lpush(objetoDatos.timeline, 'Me uni a Pirate Twitter - Vic');
+      let dateClass = new Date();
+      let date = dateClass.getFullYear()+'-'+(dateClass.getMonth()+1)+'-'+dateClass.getDate();
+      let messageJSON = {user: username, message: "Me uni a Pirate Twitter", timestamp: date};
+      client.lpush(objetoDatos.timeline, JSON.stringify(messageJSON));
       res.render('signup', {Mensaje: "Felicidades te registraste." , Payload: stringDatos});
     } else {
       res.render('signup', {Mensaje: "Usuario ya registrado." , Payload: stringDatos});

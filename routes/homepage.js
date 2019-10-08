@@ -18,25 +18,30 @@ router.get('/', function(req, res, next) {
                 result.forEach(function (element) {
                     listFollowers.push(element);
                 });
-                client.hgetall('users', function(err, result){
-                    let listNotFollowing = [];
-                    for(user in result){
-                        if(listFollowing.includes(user) === false){
-                            listNotFollowing.push(user);
+                client.lrange(userJSON.timeline, 0, -1, function(err, result){
+                    let listPosts = [];
+                    result.forEach(function (element) {
+                        let postJSON = JSON.parse(element)
+                        listPosts.push(postJSON);
+                    });
+
+                    client.hgetall('users', function(err, result){
+                        let listNotFollowing = [];
+                        for(user in result){
+                            if(listFollowing.includes(user) === false){
+                                listNotFollowing.push(user);
+                            }
                         }
-                    }
-                    console.log(listFollowing);
-                    console.log(listFollowers);
-                    console.log(listNotFollowing);
-
-                    var listPosts = [{user: 'Vic', message: 'Me pegaron en mi casa', timestamp: '2019-01-18'}, 
-                    {user: 'El papa', message: 'Toque al Fer ayer', timestamp: '2019-01-19'}, 
-                    {user: 'El papa', message: 'Jaja lol', timestamp: '2019-01-20'}];
-
-                    context = {username: username, listFollowing: listFollowing, 
-                                listFollowers: listFollowers, listNotFollowing: listNotFollowing, 
-                                listPosts: listPosts};
-                    res.render('homepage', context);
+                        console.log(listFollowing);
+                        console.log(listFollowers);
+                        console.log(listNotFollowing);
+                        console.log(listPosts);
+    
+                        context = {username: username, listFollowing: listFollowing, 
+                                    listFollowers: listFollowers, listNotFollowing: listNotFollowing, 
+                                    listPosts: listPosts};
+                        res.render('homepage', context);
+                    });
                 });
             });
         });
@@ -74,6 +79,6 @@ router.post('/publish', function(req, res, next) {
         }
     });
 
-    res.redirect('/homepage', {username: username});
+    res.redirect('/home');
 });
 module.exports = router;
