@@ -10,9 +10,9 @@ block content
                     each follower in context.listFollowers
                         li.list-group-item= follower
             
-                form(action="" method='post')
+                form(action="/logout" method='post')
                     button.btn.btn-danger(type='submit' style='margin-top:10px;') Logout
-                    input#exampleFormControlInput1.form-control(type='hidden' name='user' placeholder='name@example.com')
+                    input#exampleFormControlInput1.form-control(type='hidden' name='username' value=username placeholder='name@example.com')
                     
             .col-6
                 button.btn.btn-primary(type='button' data-toggle='modal' data-target='#exampleModal', style='margin-bottom: 30px;')
@@ -27,7 +27,7 @@ block content
                                         span(aria-hidden='true') &times;
                                 .modal-body
                                     .form-group
-                                        input#exampleFormControlInput1.form-control(type='hidden' name='user' placeholder='name@example.com')
+                                        input#exampleFormControlInput1.form-control(type='hidden' name='username' value=username placeholder='name@example.com')
 
                                     .form-group
                                         label(for='exampleFormControlTextarea1') Message
@@ -60,8 +60,8 @@ block content
                         ul.list-group(style='margin-bottom:50px;')
                             each noFollowing in context.listNotFollowing
                                 li.list-group-item= noFollowing
-                                    form(action="" method='POST')
-                                        button.btn.btn-success(type='button') Follow
+                                    form(action="/home/follow" method='POST')
+                                        button.btn.btn-success(type='submit') Follow
                                         input#exampleFormControlInput1.form-control(type='hidden' name='user' value=username placeholder='name@example.com')
                                         input#exampleFormControlInput1.form-control(type='hidden' name='newFollow' value=noFollowing placeholder='name@example.com')
 

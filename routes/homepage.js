@@ -49,19 +49,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/follow', function(req, res, next) {
-    let sender = req.body.user;
-    let receiver = re.body.noFollow;
+    let username = req.body.user;
+    let newFollow = req.body.newFollow;
 
-    client.lpush('listFollowing' + receiver, sender);
-    client.lpush('listFollowers' + sender, receiver);
+    client.lpush('listFollowing' + username, newFollow);
+    client.lpush('listFollowers' + newFollow, username);
 
-    client2.unsubscribe();
-
-    client.lrange('listFollowing' + receiver, 0, -1, function(err, reply){
-        client.subscribe(reply);
-    });
-
-    res.render();
+    let url = '/home?user=' + username;
+    res.redirect(url);
 });
 
 
@@ -70,15 +65,17 @@ router.post('/publish', function(req, res, next) {
     let username = req.body.username;
     let message = req.body.message;
 
-    client.publish(username, message);
-
-    client.lpush('timelineOf' + username, message);
-    client.lrange('listFollowers' + username, 0, -1, function(err, reply){
-        for(r in reply){
-            client.lpush('timelineOf' + r, message);
-        }
+    client.lrange('listFollowers' + username, 0, -1, function(err, result){
+        let dateClass = new Date();
+        let date = dateClass.getFullYear()+'-'+(dateClass.getMonth()+1)+'-'+dateClass.getDate();
+        let messageTemp = {user: username, message: message, timestamp: date};
+        let messageString = JSON.stringify(messageTemp);
+        result.forEach(function(element){
+            client.publish(element, messageString);
+        });
     });
 
-    res.redirect('/home');
+    let url = '/home?user=' + username;
+    res.redirect(url);
 });
 module.exports = router;

@@ -26,11 +26,13 @@ router.post('/login', function(req, res, next){
   let username = req.body.loginUsername
   console.log('Username from post:' + username)
   let password = req.body.loginPassword;
+  /*
   client.publish('Mi canal favorito', 'Mi mama me mima');
   client.publish('fsdabhkfas', 'Mi mama me mima');
   client.publish('asjkfg', 'Mi mama me mima');
   client.publish('TJosdfpjdf', 'Mi mama me mima');
   client.publish('FASFSD', 'Mi mama me mima');
+  */
   client.hget('users', username, function(err, result){
     if(result === null){
       res.render('error', { title: "No existe dicho usuario" });
@@ -39,7 +41,15 @@ router.post('/login', function(req, res, next){
       userJSON = JSON.parse(result);
       console.log(userJSON);
       if(password === userJSON.password){
-        let url = '/home?user=' + username 
+        clients.set(username, redis.createClient());
+        let client_temp = clients.get(username);
+        client_temp.subscribe(username);
+
+        client_temp.on("message", function (channel, message) {
+          client.lpush('timelineOf' + channel, message);
+        });
+
+        let url = '/home?user=' + username;
         res.redirect(url);
       } else {
         res.render('error', { title: "Contraseña incorrecta" });
