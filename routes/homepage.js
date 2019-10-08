@@ -2,9 +2,31 @@ var express = require('express');
 var router = express.Router();
 var redis = require('redis'), client = redis.createClient(), client2 = redis.createClient();
 
-
 router.get('/', function(req, res, next) {
     let username = req.param('user');
+    console.log(clientMaps);
+    console.log(username);
+    client.hget("users", username, function (err, result) {
+        let userJSON = JSON.parse(result);
+        client.lrange(userJSON.following, 0, -1, function (err, result) {
+            let listFollowing = [];
+            result.forEach(function (element) {
+                listFollowing.push(element);
+            });
+            client.lrange(userJSON.followers, 0, -1, function (err, result) {
+                let listFollowers = [];
+                result.forEach(function (element) {
+                    listFollowers.push(element);
+                });
+                client.hgetall('users', function(err, result){
+                    console.log(result);
+                    
+                });
+
+            });
+
+        });
+    });
     var listFollowing = ['Fer', 'Kim', 'Salaboy']
     var listFollowers = ['Vic', 'El papa']
     var listNoFollow = ['Loco', 'Polo']

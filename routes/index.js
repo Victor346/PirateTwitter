@@ -71,4 +71,4 @@ router.post('/signup', function(req, res, next){
   
 });
 module.exports = router;
-module.exports.mapita = clients;
+global.clientMaps = clients;
