@@ -2,4 +2,5 @@ extends layout
 
 block content
     h1= Mensaje
-    button.btn.btn-success(type='button' href='/index.html') Regresar
+    form(action="/", method="get")
+        button.btn.btn-success(type='submit', style='margin-top: 50px; margin-left: 50px;') Regresar
