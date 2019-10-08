@@ -52,7 +52,7 @@ router.post('/login', function(req, res, next){
 router.post('/signup', function(req, res, next){
   let username = req.body.username;
   let password = req.body.password;
-  let objetoDatos = {password: password, 
+  let objetoDatos = {user: username, password: password, 
     followers: 'listFollowers' + username, following: 'listFollowing' + 
     username, timeline: 'timelineOf' + username};
   let stringDatos = JSON.stringify(objetoDatos);

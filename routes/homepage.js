@@ -19,28 +19,28 @@ router.get('/', function(req, res, next) {
                     listFollowers.push(element);
                 });
                 client.hgetall('users', function(err, result){
-                    console.log(result);
-                    
+                    let listNotFollowing = [];
+                    for(user in result){
+                        if(listFollowing.includes(user) === false){
+                            listNotFollowing.push(user);
+                        }
+                    }
+                    console.log(listFollowing);
+                    console.log(listFollowers);
+                    console.log(listNotFollowing);
+
+                    var listPosts = [{user: 'Vic', message: 'Me pegaron en mi casa', timestamp: '2019-01-18'}, 
+                    {user: 'El papa', message: 'Toque al Fer ayer', timestamp: '2019-01-19'}, 
+                    {user: 'El papa', message: 'Jaja lol', timestamp: '2019-01-20'}];
+
+                    context = {username: username, listFollowing: listFollowing, 
+                                listFollowers: listFollowers, listNotFollowing: listNotFollowing, 
+                                listPosts: listPosts};
+                    res.render('homepage', context);
                 });
-
             });
-
         });
     });
-    var listFollowing = ['Fer', 'Kim', 'Salaboy']
-    var listFollowers = ['Vic', 'El papa']
-    var listNoFollow = ['Loco', 'Polo']
-    var listPosts = [{user: 'Vic', message: 'Me pegaron en mi casa', timestamp: '2019-01-18'}, {user: 'El papa', message: 'Toque al Fer ayer', timestamp: '2019-01-19'}, {user: 'El papa', message: 'Jaja lol', timestamp: '2019-01-20'}]
-
-    client.lrange('listFollowing' + username, 0, -1, function(err, replyFollowing){
-        client.lrange('listFollower' + username, 0, -1, function(err, replyFollowing){
-
-        });
-    });
-
-
-    context = {username: username, listFollowing: listFollowing, listFollowers: listFollowers, listNoFollow: listNoFollow, listPosts: listPosts}
-    res.render('homepage', context);
 });
 
 router.post('/follow', function(req, res, next) {

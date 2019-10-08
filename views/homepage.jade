@@ -58,7 +58,7 @@ block content
                     .col
                         h1 Not suscribed to:
                         ul.list-group(style='margin-bottom:50px;')
-                            each noFollowing in context.listNoFollow
+                            each noFollowing in context.listNotFollowing
                                 li.list-group-item= noFollowing
                                     form(action="" method='POST')
                                         button.btn.btn-success(type='button') Follow
